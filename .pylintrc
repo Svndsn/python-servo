@@ -1,0 +1,11 @@
+[MESSAGES CONTROL]
+disable=
+
+[REPORTS]
+output-format = colorized
+
+[FORMAT]
+max-line-length=100
+
+[MASTER]
+ignore=__pycache__
