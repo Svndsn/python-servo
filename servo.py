@@ -11,6 +11,8 @@ Date: August 8, 2025
 import time
 import threading
 import gpiod
+if not hasattr(gpiod, 'LINE_REQ_DIR_OUT'):
+                gpiod.LINE_REQ_DIR_OUT = 0
 from typing import Optional, Union
 
 

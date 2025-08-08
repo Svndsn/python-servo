@@ -62,6 +62,9 @@ class TestServoInitialization(unittest.TestCase):
     
     def setUp(self):
         """Set up test fixtures."""
+        import gpiod
+        if not hasattr(gpiod, 'LINE_REQ_DIR_OUT'):
+                gpiod.LINE_REQ_DIR_OUT = 0
         self.chip_patcher = patch('servo.gpiod.Chip', MockGpiodChip)
         self.chip_patcher.start()
     
@@ -119,6 +122,9 @@ class TestServoAngleControl(unittest.TestCase):
     
     def setUp(self):
         """Set up test fixtures."""
+        import gpiod
+        if not hasattr(gpiod, 'LINE_REQ_DIR_OUT'):
+                gpiod.LINE_REQ_DIR_OUT = 0
         self.chip_patcher = patch('servo.gpiod.Chip', MockGpiodChip)
         self.chip_patcher.start()
         self.servo = Servo(pin=18)
@@ -177,6 +183,9 @@ class TestServoPulseWidthControl(unittest.TestCase):
     
     def setUp(self):
         """Set up test fixtures."""
+        import gpiod
+        if not hasattr(gpiod, 'LINE_REQ_DIR_OUT'):
+                gpiod.LINE_REQ_DIR_OUT = 0
         self.chip_patcher = patch('servo.gpiod.Chip', MockGpiodChip)
         self.chip_patcher.start()
         self.servo = Servo(pin=18)
@@ -219,6 +228,9 @@ class TestServoPercentageControl(unittest.TestCase):
     
     def setUp(self):
         """Set up test fixtures."""
+        import gpiod
+        if not hasattr(gpiod, 'LINE_REQ_DIR_OUT'):
+                gpiod.LINE_REQ_DIR_OUT = 0
         self.chip_patcher = patch('servo.gpiod.Chip', MockGpiodChip)
         self.chip_patcher.start()
         self.servo = Servo(pin=18)
@@ -252,6 +264,9 @@ class TestServoPWMControl(unittest.TestCase):
     
     def setUp(self):
         """Set up test fixtures."""
+        import gpiod
+        if not hasattr(gpiod, 'LINE_REQ_DIR_OUT'):
+                gpiod.LINE_REQ_DIR_OUT = 0
         self.chip_patcher = patch('servo.gpiod.Chip', MockGpiodChip)
         self.chip_patcher.start()
         self.servo = Servo(pin=18)
@@ -315,6 +330,9 @@ class TestServoSweep(unittest.TestCase):
     
     def setUp(self):
         """Set up test fixtures."""
+        import gpiod
+        if not hasattr(gpiod, 'LINE_REQ_DIR_OUT'):
+                gpiod.LINE_REQ_DIR_OUT = 0
         self.chip_patcher = patch('servo.gpiod.Chip', MockGpiodChip)
         self.chip_patcher.start()
         self.servo = Servo(pin=18)
@@ -355,6 +373,9 @@ class TestServoCalibration(unittest.TestCase):
     
     def setUp(self):
         """Set up test fixtures."""
+        import gpiod
+        if not hasattr(gpiod, 'LINE_REQ_DIR_OUT'):
+                gpiod.LINE_REQ_DIR_OUT = 0
         self.chip_patcher = patch('servo.gpiod.Chip', MockGpiodChip)
         self.chip_patcher.start()
         self.servo = Servo(pin=18)
@@ -391,6 +412,9 @@ class TestServoContextManager(unittest.TestCase):
     
     def setUp(self):
         """Set up test fixtures."""
+        import gpiod
+        if not hasattr(gpiod, 'LINE_REQ_DIR_OUT'):
+                gpiod.LINE_REQ_DIR_OUT = 0
         self.chip_patcher = patch('servo.gpiod.Chip', MockGpiodChip)
         self.chip_patcher.start()
     
@@ -414,6 +438,9 @@ class TestServoThreadSafety(unittest.TestCase):
     
     def setUp(self):
         """Set up test fixtures."""
+        import gpiod
+        if not hasattr(gpiod, 'LINE_REQ_DIR_OUT'):
+                gpiod.LINE_REQ_DIR_OUT = 0
         self.chip_patcher = patch('servo.gpiod.Chip', MockGpiodChip)
         self.chip_patcher.start()
         self.servo = Servo(pin=18)
