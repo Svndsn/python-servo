@@ -18,7 +18,11 @@ import os
 # Add the parent directory to the path to import the servo module
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from servo import Servo, ServoError
+try:
+    from servo import Servo, ServoError
+except ImportError:
+    # Fallback for when running as a package
+    from .servo import Servo, ServoError
 
 
 class MockGpiodLine:

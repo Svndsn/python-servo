@@ -21,7 +21,7 @@ A comprehensive Python implementation for controlling servo motors using the `gp
 ---
 
 ![Python Version](https://img.shields.io/badge/python-3.12.3%2B-blue)
-![License](https://img.shields.io/badge/license-educational%20%26%20dev-lightgrey)
+![License](https://img.shields.io/github/license/svndsn/python-servo)
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
 
 ## Requirements
@@ -76,14 +76,22 @@ Servo(pin, chip="gpiochip4", frequency=50, min_pulse_width=1.0, max_pulse_width=
 
 ## Installation
 
+### From PyPI (Recommended)
 ```bash
-pip install gpiod
+pip install python-servo-gpiod
+```
+
+### From Source
+```bash
+git clone https://github.com/Svndsn/python-servo.git
+cd python-servo
+pip install -e .
 ```
 
 ## Quick Start
 
 ```python
-from servo import Servo
+from python_servo_gpiod import Servo
 
 # Create and use servo with context manager (recommended)
 with Servo(pin=18) as servo:
@@ -169,7 +177,7 @@ servo.calibrate(min_pulse, max_pulse) # Calibrate pulse width range
 
 ### Basic Usage
 ```python
-from servo import Servo
+from python_servo_gpiod import Servo
 import time
 
 # Initialize servo on GPIO pin 18
@@ -328,7 +336,7 @@ Typical performance characteristics:
 
 ## License
 
-This implementation is provided as-is for educational and development purposes.
+This project is licensed under the MIT License.
 
 See [LICENSE.md](LICENSE.md) for full license details.
 
