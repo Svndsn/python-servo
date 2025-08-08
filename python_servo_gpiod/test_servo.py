@@ -11,6 +11,7 @@ Date: August 8, 2025
 import unittest
 import time
 import threading
+import math
 from unittest.mock import Mock, MagicMock, patch, call
 import sys
 import os
@@ -251,7 +252,7 @@ class TestServoRadControl(unittest.TestCase):
         for angle_rad, expected_angle in zip(test_angles_rad, expected_angles_deg):
             self.servo.set_angle_rad(angle_rad)
             self.assertAlmostEqual(self.servo.get_current_angle(), expected_angle, places=1)
-            self.assertAlmostEqual(self.servo.get_current_pulse_width(), 1.0 + (angle_rad / 1.5708) * 1.0, places=3)
+            self.assertAlmostEqual(self.servo.get_current_pulse_width(), 1.0 + (angle_rad / (math.pi / 2)) * 1.0, places=3)
     
     def test_set_angle_rad_invalid_range(self):
         """Test setting angles in radians outside valid range."""
