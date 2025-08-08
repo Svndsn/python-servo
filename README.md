@@ -29,7 +29,7 @@ pip install gpiod
 ## Quick Start
 
 ```python
-from servo.main import Servo
+from servo import Servo
 
 # Create and use servo with context manager (recommended)
 with Servo(pin=18) as servo:
@@ -115,7 +115,7 @@ servo.calibrate(min_pulse, max_pulse) # Calibrate pulse width range
 
 ### Basic Usage
 ```python
-from servo.main import Servo
+from servo import Servo
 import time
 
 # Initialize servo on GPIO pin 18
