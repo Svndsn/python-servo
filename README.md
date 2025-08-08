@@ -20,11 +20,19 @@ A comprehensive Python implementation for controlling servo motors using the `gp
 
 ---
 
-![Python Version](https://img.shields.io/badge/python-3.12.3%2B-blue)
-![License](https://img.shields.io/github/license/svndsn/python-servo)
-![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
-
 ## Requirements
+
+![PyPI Version](https://img.shields.io/pypi/v/python-servo-gpiod)
+![PyPI Status](https://img.shields.io/pypi/status/python-servo-gpiod)
+![Python Version](https://img.shields.io/pypi/pyversions/python-servo-gpiod)
+![PyPI Downloads](https://img.shields.io/pypi/dm/python-servo-gpiod)
+![License](https://img.shields.io/github/license/Svndsn/python-servo)
+![GitHub Stars](https://img.shields.io/github/stars/Svndsn/python-servo)
+![GitHub Issues](https://img.shields.io/github/issues/Svndsn/python-servo)
+![GitHub Forks](https://img.shields.io/github/forks/Svndsn/python-servo)
+![Build and Test](https://github.com/Svndsn/python-servo/actions/workflows/test.yml/badge.svg)
+![Publish to PyPI](https://github.com/Svndsn/python-servo/actions/workflows/publish.yml/badge.svg)
+![Code Size](https://img.shields.io/github/languages/code-size/Svndsn/python-servo)
 
 ## Useful Links
 
