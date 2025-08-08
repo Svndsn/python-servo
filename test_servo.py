@@ -19,7 +19,7 @@ import os
 # Add the parent directory to the path to import the servo module
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from main import Servo, ServoError
+from servo import Servo, ServoError
 
 
 class MockGpiodLine:
@@ -63,7 +63,7 @@ class TestServoInitialization(unittest.TestCase):
     
     def setUp(self):
         """Set up test fixtures."""
-        self.chip_patcher = patch('main.gpiod.Chip', MockGpiodChip)
+        self.chip_patcher = patch('servo.gpiod.Chip', MockGpiodChip)
         self.chip_patcher.start()
     
     def tearDown(self):
@@ -109,7 +109,7 @@ class TestServoInitialization(unittest.TestCase):
     
     def test_gpio_initialization_failure(self):
         """Test handling of GPIO initialization failure."""
-        with patch('main.gpiod.Chip', side_effect=Exception("GPIO not available")):
+        with patch('servo.gpiod.Chip', side_effect=Exception("GPIO not available")):
             with self.assertRaises(ServoError) as context:
                 Servo(pin=18)
             self.assertIn("Failed to initialize GPIO pin 18", str(context.exception))
@@ -120,7 +120,7 @@ class TestServoAngleControl(unittest.TestCase):
     
     def setUp(self):
         """Set up test fixtures."""
-        self.chip_patcher = patch('main.gpiod.Chip', MockGpiodChip)
+        self.chip_patcher = patch('servo.gpiod.Chip', MockGpiodChip)
         self.chip_patcher.start()
         self.servo = Servo(pin=18)
     
@@ -178,7 +178,7 @@ class TestServoPulseWidthControl(unittest.TestCase):
     
     def setUp(self):
         """Set up test fixtures."""
-        self.chip_patcher = patch('main.gpiod.Chip', MockGpiodChip)
+        self.chip_patcher = patch('servo.gpiod.Chip', MockGpiodChip)
         self.chip_patcher.start()
         self.servo = Servo(pin=18)
     
@@ -220,7 +220,7 @@ class TestServoPercentageControl(unittest.TestCase):
     
     def setUp(self):
         """Set up test fixtures."""
-        self.chip_patcher = patch('main.gpiod.Chip', MockGpiodChip)
+        self.chip_patcher = patch('servo.gpiod.Chip', MockGpiodChip)
         self.chip_patcher.start()
         self.servo = Servo(pin=18)
     
@@ -253,7 +253,7 @@ class TestServoPWMControl(unittest.TestCase):
     
     def setUp(self):
         """Set up test fixtures."""
-        self.chip_patcher = patch('main.gpiod.Chip', MockGpiodChip)
+        self.chip_patcher = patch('servo.gpiod.Chip', MockGpiodChip)
         self.chip_patcher.start()
         self.servo = Servo(pin=18)
     
@@ -316,7 +316,7 @@ class TestServoSweep(unittest.TestCase):
     
     def setUp(self):
         """Set up test fixtures."""
-        self.chip_patcher = patch('main.gpiod.Chip', MockGpiodChip)
+        self.chip_patcher = patch('servo.gpiod.Chip', MockGpiodChip)
         self.chip_patcher.start()
         self.servo = Servo(pin=18)
     
@@ -356,7 +356,7 @@ class TestServoCalibration(unittest.TestCase):
     
     def setUp(self):
         """Set up test fixtures."""
-        self.chip_patcher = patch('main.gpiod.Chip', MockGpiodChip)
+        self.chip_patcher = patch('servo.gpiod.Chip', MockGpiodChip)
         self.chip_patcher.start()
         self.servo = Servo(pin=18)
     
@@ -392,7 +392,7 @@ class TestServoContextManager(unittest.TestCase):
     
     def setUp(self):
         """Set up test fixtures."""
-        self.chip_patcher = patch('main.gpiod.Chip', MockGpiodChip)
+        self.chip_patcher = patch('servo.gpiod.Chip', MockGpiodChip)
         self.chip_patcher.start()
     
     def tearDown(self):
@@ -415,7 +415,7 @@ class TestServoThreadSafety(unittest.TestCase):
     
     def setUp(self):
         """Set up test fixtures."""
-        self.chip_patcher = patch('main.gpiod.Chip', MockGpiodChip)
+        self.chip_patcher = patch('servo.gpiod.Chip', MockGpiodChip)
         self.chip_patcher.start()
         self.servo = Servo(pin=18)
     

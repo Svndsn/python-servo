@@ -181,7 +181,6 @@ servo.set_angle(90)  # Uses 1.5ms pulse width
 
 ### Run Unit Tests
 ```bash
-cd servo
 python test_servo.py --verbose
 ```
 
