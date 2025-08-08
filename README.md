@@ -20,7 +20,7 @@ A comprehensive Python implementation for controlling servo motors using the `gp
 
 ---
 
-![Python Version](https://img.shields.io/badge/python-3.6%2B-blue)
+![Python Version](https://img.shields.io/badge/python-3.9%2B-blue)
 ![License](https://img.shields.io/badge/license-educational%20%26%20dev-lightgrey)
 ![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
 
@@ -70,7 +70,7 @@ Servo(pin, chip="gpiochip4", frequency=50, min_pulse_width=1.0, max_pulse_width=
 | `cleanup()`                      | Release GPIO resources                           |
 | `calibrate(min_pulse, max_pulse)`| Calibrate pulse width range                      |
 
-- Python 3.6+
+- Python 3.9+
 - `gpiod` library (version 2.0+)
 - Linux system with GPIO support (Raspberry Pi, etc.)
 
