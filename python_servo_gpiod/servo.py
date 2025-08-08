@@ -171,6 +171,16 @@ class Servo:
             self.current_pulse_width = pulse_width
             self.current_angle = angle
     
+    def set_angle_rad(self, angle_rad: float):
+        """
+        Set the servo angle in radians.
+        
+        Args:
+            angle_rad: Target angle in radians
+        """
+        angle_deg = angle_rad * (180.0 / 3.141592653589793)  # Convert radians to degrees
+        self.set_angle(angle_deg)
+    
     def set_position_percent(self, percent: float):
         """
         Set servo position as a percentage (0-100%).

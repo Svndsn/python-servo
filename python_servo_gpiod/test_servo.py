@@ -226,6 +226,39 @@ class TestServoPulseWidthControl(unittest.TestCase):
         self.servo.set_pulse_width(1.5)
         self.assertEqual(self.servo.get_current_angle(), 45)
 
+class TestServoRadControl(unittest.TestCase):
+    """Test servo angle control in radians."""
+    
+    def setUp(self):
+        """Set up test fixtures."""
+        import gpiod
+        if not hasattr(gpiod, 'LINE_REQ_DIR_OUT'):
+                gpiod.LINE_REQ_DIR_OUT = 0
+        self.chip_patcher = patch('servo.gpiod.Chip', MockGpiodChip)
+        self.chip_patcher.start()
+        self.servo = Servo(pin=18)
+    
+    def tearDown(self):
+        """Tear down test fixtures."""
+        self.servo.cleanup()
+        self.chip_patcher.stop()
+    
+    def test_set_angle_rad_valid_range(self):
+        """Test setting angles in radians within valid range."""
+        test_angles_rad = [0, 0.3927, 0.7854, 1.1781, 1.57] 
+        expected_angles_deg = [0, 22.5, 45, 67.5, 90]
+        
+        for angle_rad, expected_angle in zip(test_angles_rad, expected_angles_deg):
+            self.servo.set_angle_rad(angle_rad)
+            self.assertAlmostEqual(self.servo.get_current_angle(), expected_angle, places=1)
+            self.assertAlmostEqual(self.servo.get_current_pulse_width(), 1.0 + (angle_rad / 1.5708) * 1.0, places=3)
+    
+    def test_set_angle_rad_invalid_range(self):
+        """Test setting angles in radians outside valid range."""
+        invalid_angles_rad = [-0.1745, 1.7453, -0.0175, 1.5709]
+        for angle_rad in invalid_angles_rad:
+            with self.assertRaises(ServoError):
+                self.servo.set_angle_rad(angle_rad)
 
 class TestServoPercentageControl(unittest.TestCase):
     """Test servo percentage control functionality."""
@@ -560,6 +593,7 @@ def main():
         TestServoInitialization,
         TestServoAngleControl,
         TestServoPulseWidthControl,
+        TestServoRadControl,
         TestServoPercentageControl,
         TestServoPWMControl,
         TestServoSweep,
