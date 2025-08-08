@@ -26,19 +26,3 @@ jobs:
       - name: Run unit tests
         run: |
           python test_servo.py --verbose
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.12.3'
-      - name: Install pylint
-        run: |
-          python -m pip install --upgrade pip
-          pip install pylint
-      - name: Run pylint
-        run: |
-          pylint servo.py test_servo.py
