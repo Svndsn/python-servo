@@ -63,6 +63,7 @@ Servo(pin, chip="gpiochip4", frequency=50, min_pulse_width=1.0, max_pulse_width=
 | Method                          | Description                                      |
 |----------------------------------|--------------------------------------------------|
 | `set_angle(angle)`               | Set specific angle (degrees)                     |
+| `set_angle_rad(angle)`           | Set specific angle (radians)                     |
 | `center()`                       | Move to center position                          |
 | `move_to_min()`                  | Move to minimum angle                            |
 | `move_to_max()`                  | Move to maximum angle                            |

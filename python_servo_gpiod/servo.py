@@ -11,6 +11,7 @@ Date: August 8, 2025
 import time
 import threading
 import gpiod
+import math
 if not hasattr(gpiod, 'LINE_REQ_DIR_OUT'):
     gpiod.LINE_REQ_DIR_OUT = 0
 from typing import Optional, Union
@@ -170,6 +171,16 @@ class Servo:
         with self._lock:
             self.current_pulse_width = pulse_width
             self.current_angle = angle
+    
+    def set_angle_rad(self, angle_rad: float):
+        """
+        Set the servo angle in radians.
+        
+        Args:
+            angle_rad: Target angle in radians
+        """
+        angle_deg = angle_rad * (180.0 / math.pi)  # Convert radians to degrees
+        self.set_angle(angle_deg)
     
     def set_position_percent(self, percent: float):
         """
