@@ -22,8 +22,6 @@ A comprehensive Python implementation for controlling servo motors using the `gp
 
 ## Installation
 
-The `gpiod` library is already installed in this environment. For other systems:
-
 ```bash
 pip install gpiod
 ```
