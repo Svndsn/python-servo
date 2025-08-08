@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 Servo Control Module using gpiod for PWM signal generation.
 
