@@ -20,6 +20,8 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y libgpiod-dev python3-libgpiod
+          python -m pip install --upgrade pip
+          pip install gpiod
 
       - name: Run unit tests
         run: |
