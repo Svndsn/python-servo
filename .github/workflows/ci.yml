@@ -18,8 +18,8 @@ jobs:
           python-version: '3.12.3'
       - name: Install dependencies
         run: |
-          apt-get update
-          apt-get install -y python3-gpiod
+          sudo apt-get update
+          sudo apt-get install -y python3-gpiod
       - name: Run unit tests
         run: |
           python test_servo.py --verbose
