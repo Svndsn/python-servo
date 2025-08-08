@@ -14,7 +14,61 @@ A comprehensive Python implementation for controlling servo motors using the `gp
 - **Comprehensive Testing**: Full test suite with mock hardware support
 - **Error Handling**: Custom exceptions and robust error management
 
+# Servo Control with gpiod
+
+A comprehensive Python implementation for controlling servo motors using the `gpiod` library on Raspberry Pi and other Linux systems with GPIO support.
+
+---
+
+![Python Version](https://img.shields.io/badge/python-3.6%2B-blue)
+![License](https://img.shields.io/badge/license-educational%20%26%20dev-lightgrey)
+![Build Status](https://img.shields.io/badge/build-passing-brightgreen)
+
 ## Requirements
+
+## Useful Links
+
+- [gpiod Python API Documentation](https://python-gpiod.readthedocs.io/en/latest/)
+- [Raspberry Pi GPIO Guide](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html#gpio)
+- [Servo Motor Basics](https://learn.sparkfun.com/tutorials/hobby-servo-tutorial/all)
+
+### Servo Class
+
+#### Constructor
+
+```python
+Servo(pin, chip="gpiochip4", frequency=50, min_pulse_width=1.0, max_pulse_width=2.0, min_angle=0, max_angle=90)
+```
+
+| Parameter         | Type    | Default      | Description                                 |
+|-------------------|---------|--------------|---------------------------------------------|
+| pin               | int     | required     | GPIO pin number for servo signal            |
+| chip              | str     | "gpiochip4" | GPIO chip name                             |
+| frequency         | int     | 50           | PWM frequency in Hz                        |
+| min_pulse_width   | float   | 1.0          | Minimum pulse width in ms                   |
+| max_pulse_width   | float   | 2.0          | Maximum pulse width in ms                   |
+| min_angle         | int     | 0            | Minimum servo angle in degrees              |
+| max_angle         | int     | 90           | Maximum servo angle in degrees              |
+
+#### Methods
+
+| Method                          | Description                                      |
+|----------------------------------|--------------------------------------------------|
+| `set_angle(angle)`               | Set specific angle (degrees)                     |
+| `center()`                       | Move to center position                          |
+| `move_to_min()`                  | Move to minimum angle                            |
+| `move_to_max()`                  | Move to maximum angle                            |
+| `set_pulse_width(width_ms)`      | Set pulse width directly (ms)                    |
+| `set_position_percent(percent)`  | Set position as percentage (0-100%)              |
+| `sweep(start, end, duration, steps=50)` | Smooth sweep between angles over duration   |
+| `get_current_angle()`            | Returns current angle                            |
+| `get_current_pulse_width()`      | Returns current pulse width (ms)                 |
+| `get_current_position_percent()` | Returns current position (%)                     |
+| `is_running()`                   | Returns True if PWM is active                    |
+| `start()`                        | Start PWM signal generation                      |
+| `stop()`                         | Stop PWM signal generation                       |
+| `cleanup()`                      | Release GPIO resources                           |
+| `calibrate(min_pulse, max_pulse)`| Calibrate pulse width range                      |
 
 - Python 3.6+
 - `gpiod` library (version 2.0+)
@@ -275,6 +329,8 @@ Typical performance characteristics:
 ## License
 
 This implementation is provided as-is for educational and development purposes.
+
+See [LICENSE.md](LICENSE.md) for full license details.
 
 ## Contributing
 
