@@ -23,11 +23,16 @@ A comprehensive Python implementation for controlling servo motors using the `gp
 ## Requirements
 
 [![PyPI version](https://img.shields.io/pypi/v/python-servo-gpiod.svg)](https://pypi.org/project/python-servo-gpiod/)
+[![PyPI status](https://img.shields.io/pypi/status/python-servo-gpiod.svg)](https://pypi.org/project/python-servo-gpiod/)
 [![Python versions](https://img.shields.io/pypi/pyversions/python-servo-gpiod.svg)](https://pypi.org/project/python-servo-gpiod/)
+[![Monthly downloads](https://img.shields.io/pypi/dm/python-servo-gpiod.svg)](https://pypistats.org/packages/python-servo-gpiod)
 [![License](https://img.shields.io/github/license/Svndsn/python-servo.svg)](LICENSE.md)
-[![Tests](https://github.com/Svndsn/python-servo/actions/workflows/test.yml/badge.svg)](https://github.com/Svndsn/python-servo/actions/workflows/test.yml)
-[![PyPI publish workflow](https://img.shields.io/badge/PyPI-publishes%20on%20release-blue?logo=pypi)](https://github.com/Svndsn/python-servo/actions/workflows/publish.yml)
+[![GitHub stars](https://img.shields.io/github/stars/Svndsn/python-servo.svg)](https://github.com/Svndsn/python-servo/stargazers)
 [![Open issues](https://img.shields.io/github/issues/Svndsn/python-servo.svg)](https://github.com/Svndsn/python-servo/issues)
+[![GitHub forks](https://img.shields.io/github/forks/Svndsn/python-servo.svg)](https://github.com/Svndsn/python-servo/network/members)
+[![Tests](https://github.com/Svndsn/python-servo/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/Svndsn/python-servo/actions/workflows/test.yml)
+[![Publish to PyPI](https://github.com/Svndsn/python-servo/actions/workflows/publish.yml/badge.svg)](https://github.com/Svndsn/python-servo/actions/workflows/publish.yml)
+[![Code size](https://img.shields.io/github/languages/code-size/Svndsn/python-servo.svg)](https://github.com/Svndsn/python-servo)
 
 ## Useful Links
 
