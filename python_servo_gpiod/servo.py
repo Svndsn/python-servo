@@ -12,9 +12,8 @@ import time
 import threading
 import gpiod
 import math
-if not hasattr(gpiod, 'LINE_REQ_DIR_OUT'):
-    gpiod.LINE_REQ_DIR_OUT = 0
-from typing import Optional, Union
+import os
+from typing import Any, Optional
 
 
 class ServoError(Exception):
@@ -71,7 +70,8 @@ class Servo:
         
         # GPIO and threading control
         self.chip: Optional[gpiod.Chip] = None
-        self.line: Optional[gpiod.Chip.get_line] = None
+        self.line: Optional[Any] = None
+        self._uses_gpiod_v2 = False
         self.pwm_thread: Optional[threading.Thread] = None
         self.running = False
         self.current_pulse_width = 1.5  # ms (center position)
@@ -86,11 +86,39 @@ class Servo:
     def _initialize_gpio(self):
         """Initialize the GPIO chip and line."""
         try:
-            self.chip = gpiod.Chip(self.chip_name)
-            self.line = self.chip.get_line(self.pin)
-            self.line.request(consumer="servo_pwm", type=gpiod.LINE_REQ_DIR_OUT)
+            # A bare chip name (the documented/default form) is a device under
+            # /dev on both libgpiod APIs.
+            chip_path = self.chip_name
+            if not os.path.isabs(chip_path) and os.path.sep not in chip_path:
+                chip_path = os.path.join("/dev", chip_path)
+            self.chip = gpiod.Chip(chip_path)
+            # libgpiod v1 exposed individual Line objects through get_line().
+            # v2 replaced that API with Chip.request_lines() and LineRequest.
+            if callable(getattr(self.chip, "get_line", None)):
+                self.line = self.chip.get_line(self.pin)
+                self.line.request(
+                    consumer="servo_pwm", type=gpiod.LINE_REQ_DIR_OUT
+                )
+            else:
+                settings = gpiod.LineSettings(
+                    direction=gpiod.line.Direction.OUTPUT
+                )
+                self.line = self.chip.request_lines(
+                    consumer="servo_pwm", config={self.pin: settings}
+                )
+                self._uses_gpiod_v2 = True
         except Exception as e:
             raise ServoError(f"Failed to initialize GPIO pin {self.pin}: {e}")
+
+    def _set_line_value(self, value: int):
+        """Set the GPIO output using the active gpiod API."""
+        if self._uses_gpiod_v2:
+            line_value = (
+                gpiod.line.Value.ACTIVE if value else gpiod.line.Value.INACTIVE
+            )
+            self.line.set_value(self.pin, line_value)
+        else:
+            self.line.set_value(value)
     
     def _pwm_worker(self):
         """Worker thread for generating PWM signal."""
@@ -112,11 +140,11 @@ class Servo:
             
             # Generate PWM signal
             if high_time > 0:
-                self.line.set_value(1)
+                self._set_line_value(1)
                 time.sleep(high_time)
             
             if low_time > 0 and self.running:
-                self.line.set_value(0)
+                self._set_line_value(0)
                 time.sleep(low_time)
     
     def start(self):
@@ -139,7 +167,7 @@ class Servo:
         
         # Ensure pin is low
         if self.line:
-            self.line.set_value(0)
+            self._set_line_value(0)
     
     def set_pulse_width(self, pulse_width_ms: float):
         """
@@ -295,8 +323,10 @@ class Servo:
         self.stop()
         if self.line:
             self.line.release()
+            self.line = None
         if self.chip:
             self.chip.close()
+            self.chip = None
     
     def __del__(self):
         """Destructor to ensure cleanup."""

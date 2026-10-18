@@ -62,6 +62,35 @@ class MockGpiodChip:
         self.closed = True
 
 
+class MockGpiodV2Request:
+    """Mock gpiod v2 LineRequest for testing."""
+    def __init__(self):
+        self.values = []
+        self.released = False
+
+    def set_value(self, offset, value):
+        self.values.append((offset, value))
+
+    def release(self):
+        self.released = True
+
+
+class MockGpiodV2Chip:
+    """Mock gpiod v2 Chip for testing."""
+    def __init__(self, path):
+        self.path = path
+        self.closed = False
+        self.request = MockGpiodV2Request()
+        self.request_args = None
+
+    def request_lines(self, consumer, config):
+        self.request_args = (consumer, config)
+        return self.request
+
+    def close(self):
+        self.closed = True
+
+
 class TestServoInitialization(unittest.TestCase):
     """Test servo initialization and basic functionality."""
     
@@ -120,6 +149,32 @@ class TestServoInitialization(unittest.TestCase):
             with self.assertRaises(ServoError) as context:
                 Servo(pin=18)
             self.assertIn("Failed to initialize GPIO pin 18", str(context.exception))
+
+    def test_gpiod_v2_initialization_and_cleanup(self):
+        """Test the request_lines API used by gpiod v2."""
+        import gpiod
+
+        with patch('servo.gpiod.Chip', MockGpiodV2Chip):
+            servo = Servo(pin=15, chip="gpiochip0")
+
+        self.assertTrue(servo._uses_gpiod_v2)
+        self.assertEqual(servo.chip.path, "/dev/gpiochip0")
+        chip = servo.chip
+        line_request = servo.line
+        consumer, config = servo.chip.request_args
+        self.assertEqual(consumer, "servo_pwm")
+        self.assertEqual(list(config), [15])
+        self.assertEqual(
+            config[15].direction, gpiod.line.Direction.OUTPUT
+        )
+
+        servo._set_line_value(1)
+        self.assertEqual(
+            line_request.values[-1], (15, gpiod.line.Value.ACTIVE)
+        )
+        servo.cleanup()
+        self.assertTrue(line_request.released)
+        self.assertTrue(chip.closed)
 
 
 class TestServoAngleControl(unittest.TestCase):
