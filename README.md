@@ -25,8 +25,8 @@ A comprehensive Python implementation for controlling servo motors using the `gp
 [![PyPI version](https://img.shields.io/pypi/v/python-servo-gpiod.svg)](https://pypi.org/project/python-servo-gpiod/)
 [![Python versions](https://img.shields.io/pypi/pyversions/python-servo-gpiod.svg)](https://pypi.org/project/python-servo-gpiod/)
 [![License](https://img.shields.io/github/license/Svndsn/python-servo.svg)](LICENSE.md)
-[![Tests](https://github.com/Svndsn/python-servo/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/Svndsn/python-servo/actions/workflows/test.yml)
-[![Publish to PyPI](https://github.com/Svndsn/python-servo/actions/workflows/publish.yml/badge.svg)](https://github.com/Svndsn/python-servo/actions/workflows/publish.yml)
+[![Tests](https://github.com/Svndsn/python-servo/actions/workflows/test.yml/badge.svg)](https://github.com/Svndsn/python-servo/actions/workflows/test.yml)
+[![PyPI publish workflow](https://img.shields.io/badge/PyPI-publishes%20on%20release-blue?logo=pypi)](https://github.com/Svndsn/python-servo/actions/workflows/publish.yml)
 [![Open issues](https://img.shields.io/github/issues/Svndsn/python-servo.svg)](https://github.com/Svndsn/python-servo/issues)
 
 ## Useful Links
